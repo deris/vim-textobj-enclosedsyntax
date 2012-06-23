@@ -43,17 +43,6 @@ let g:enclosedsyntax_custom_mapping = {
   \ }
 
 function! textobj#enclosedsyntax#select_a()  "{{{2
-  return s:select(0)
-endfunction
-
-function! textobj#enclosedsyntax#select_i()  "{{{2
-  return s:select(1)
-endfunction
-
-
-
-" Misc.  "{{{1
-function! s:select(in)  "{{{2
   if empty(&ft)
     return 0
   endif
@@ -65,7 +54,7 @@ function! s:select(in)  "{{{2
   let [save_ww, save_lz] = [&whichwrap, &lazyredraw]
   set whichwrap=h,l lazyredraw
 
-  let res = s:traverse_enclosedsyntax(a:in)
+  let res = s:traverse_enclosedsyntax()
 
   let [&whichwrap, &lazyredraw] = [save_ww, save_lz]
 
@@ -73,7 +62,28 @@ function! s:select(in)  "{{{2
   return res
 endfunction
 
-function! s:traverse_enclosedsyntax(in)  "{{{2
+function! textobj#enclosedsyntax#select_i()  "{{{2
+  let outer = textobj#enclosedsyntax#select_a()
+  if type(outer) == type(0)
+    return 0
+  endif
+  let [b, e] = outer[1:]
+
+  let b = s:get_innerpos(b, 'l')
+  let e = s:get_innerpos(e, 'h')
+
+  if b[1] > e[1] ||
+        \ b[1] == e[1] && b[2] >= e[2]
+    return 0
+  endif
+
+  return ['v', b, e]
+endfunction
+
+
+
+" Misc.  "{{{1
+function! s:traverse_enclosedsyntax()  "{{{2
   let c = getpos('.')
   let [b, e] = [c, c]
 
@@ -93,11 +103,6 @@ function! s:traverse_enclosedsyntax(in)  "{{{2
       if !empty(stack) && has_key(stack[-1], 'start') && has_key(stack[-1], 'end')
         call remove(stack, -1)
       elseif len(stack) == 1 && has_key(stack[-1], 'start') && !has_key(stack[-1], 'end')
-        normal! l
-        break
-      endif
-    elseif a:in && !empty(res)
-      if len(stack) == 1 && has_key(stack[-1], 'start') && !has_key(stack[-1], 'end')
         normal! l
         break
       endif
@@ -136,11 +141,6 @@ function! s:traverse_enclosedsyntax(in)  "{{{2
         elseif !empty(stack)
           call remove(stack, -1)
         endif
-      endif
-    elseif a:in && !empty(res)
-      if len(stack) == 1 && has_key(stack[-1], 'start') && has_key(stack[-1], 'end')
-        normal! h
-        break
       endif
     endif
     let prev_res = deepcopy(res)
@@ -211,6 +211,17 @@ function! s:synname_stack(line, col)  "{{{2
     call add(stack, synname)
   endfor
   return stack
+endfunction
+
+function! s:get_innerpos(pos, direct)
+  call setpos('.', a:pos)
+  let first_syn = synstack(line('.'), col('.'))
+  let cur_syn = first_syn
+  while cur_syn == first_syn
+    execute 'normal! ' a:direct
+    let cur_syn = synstack(line('.'), col('.'))
+  endwhile
+  return getpos('.')
 endfunction
 
 
