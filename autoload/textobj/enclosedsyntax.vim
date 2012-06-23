@@ -158,10 +158,12 @@ endfunction
 
 function! s:match_enclosedsyntax(stack, prev_res, cur_syn)  "{{{2
   for enc_syn in g:enclosedsyntax_custom_mapping[&ft]
-    if a:cur_syn == enc_syn.start
+    let start_diff = len(a:cur_syn) - len(enc_syn.start)
+    let end_diff = len(a:cur_syn) - len(enc_syn.end)
+    if start_diff >= 0 && a:cur_syn[start_diff :] == enc_syn.start
       if !empty(a:stack) && has_key(a:stack[-1], 'end')
-        if enc_syn == { 'start': a:cur_syn, 'end': a:stack[-1].end }
-          let a:stack[-1].start = a:cur_syn
+        if enc_syn == { 'start': a:cur_syn[start_diff :], 'end': a:stack[-1].end }
+          let a:stack[-1].start = a:cur_syn[start_diff :]
           return a:stack[-1]
         else
           " TODO: error handling
@@ -170,14 +172,14 @@ function! s:match_enclosedsyntax(stack, prev_res, cur_syn)  "{{{2
       else
         if empty(a:stack) ||
               \ (!empty(a:prev_res) && a:stack[-1] != a:prev_res)
-          call add(a:stack, { 'start': a:cur_syn })
+          call add(a:stack, { 'start': a:cur_syn[start_diff :] })
         endif
         return a:stack[-1]
       endif
-    elseif a:cur_syn == enc_syn.end
+    elseif end_diff >= 0 && a:cur_syn[end_diff :] == enc_syn.end
       if !empty(a:stack) && has_key(a:stack[-1], 'start')
-        if enc_syn == { 'start': a:stack[-1].start, 'end': a:cur_syn }
-          let a:stack[-1].end = a:cur_syn
+        if enc_syn == { 'start': a:stack[-1].start, 'end': a:cur_syn[end_diff :] }
+          let a:stack[-1].end = a:cur_syn[end_diff :]
           return a:stack[-1]
         else
           " TODO: error handling
@@ -186,7 +188,7 @@ function! s:match_enclosedsyntax(stack, prev_res, cur_syn)  "{{{2
       else
         if empty(a:stack) ||
               \ (!empty(a:prev_res) && a:stack[-1] != a:prev_res)
-          call add(a:stack, { 'end': a:cur_syn })
+          call add(a:stack, { 'end': a:cur_syn[end_diff :] })
         endif
         return a:stack[-1]
       endif
