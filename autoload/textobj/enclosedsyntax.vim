@@ -63,6 +63,7 @@ function! textobj#enclosedsyntax#select_a()  "{{{2
 endfunction
 
 function! textobj#enclosedsyntax#select_i()  "{{{2
+  let c = getpos('.')
   let outer = textobj#enclosedsyntax#select_a()
   if type(outer) == type(0)
     return 0
@@ -72,6 +73,7 @@ function! textobj#enclosedsyntax#select_i()  "{{{2
   let b = s:get_innerpos(b, 'l')
   let e = s:get_innerpos(e, 'h')
 
+  call setpos('.', c)
   if b[1] > e[1] ||
         \ b[1] == e[1] && b[2] >= e[2]
     return 0
