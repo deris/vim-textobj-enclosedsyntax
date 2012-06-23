@@ -34,6 +34,12 @@ let g:enclosedsyntax_custom_mapping = {
   \   { 'start': ['perlHereDoc','perlStringStartEnd'], 'end': ['perlStringStartEnd'] },
   \   { 'start': ['perlAutoload','perlStringStartEnd'], 'end': ['perlStringStartEnd'] },
   \ ],
+  \ 'ruby': [
+  \   { 'start': ['rubyString','rubyStringDelimiter'], 'end': ['rubyStringDelimiter'] },
+  \   { 'start': ['rubyRegexp','rubyRegexpDelimiter'], 'end': ['rubyRegexpDelimiter'] },
+  \   { 'start': ['rubySymbol','rubySymbolDelimiter'], 'end': ['rubySymbolDelimiter'] },
+  \   { 'start': ['rubyHeredocStart','rubyStringDelimiter'], 'end': ['rubyStringDelimiter'] },
+  \ ],
   \ }
 
 function! textobj#enclosedsyntax#select_a()  "{{{2
