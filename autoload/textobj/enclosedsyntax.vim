@@ -139,7 +139,7 @@ function! s:traverse_enclosedsyntax(in)  "{{{2
     endif
     let prev_res = deepcopy(res)
 
-    if cur_line == btm_line && cur_col == col('$')
+    if cur_line == btm_line && cur_col == col('$') - 1
       break
     endif
     normal! l
