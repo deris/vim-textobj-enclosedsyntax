@@ -90,6 +90,7 @@ function! s:traverse_enclosedsyntax()  "{{{2
 
   let stack = []
   let prev_res = {}
+  let first_flag = 1
   while 1
     let cur_line = line('.')
     let cur_col = col('.')
@@ -98,6 +99,12 @@ function! s:traverse_enclosedsyntax()  "{{{2
     let res = s:match_enclosedsyntax(stack, prev_res, cur_syn)
     if type(res) == type(0)
       break
+    endif
+    if first_flag == 1 && has_key(res, 'end')
+      let res = {}
+      call remove(stack, -1)
+    else
+      let first_flag = 0
     endif
     if !empty(prev_res) && res != prev_res
       if !empty(stack) && has_key(stack[-1], 'start') && has_key(stack[-1], 'end')
