@@ -121,6 +121,7 @@ function! s:traverse_enclosedsyntax()  "{{{2
   endif
 
   let b = getpos('.')
+  call s:get_innerpos(b, 'l')
 
   let btm_line = line('$')
   let prev_res = {}
