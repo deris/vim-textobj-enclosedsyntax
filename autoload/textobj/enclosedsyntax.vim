@@ -1,5 +1,5 @@
 " Text objects for an enclosed syntax.
-" Version: 0.0.1
+" Version: 0.1.0
 " Author : deris0126 <deris0126@gmail.com>
 " License: So-called MIT/X license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
@@ -179,15 +179,11 @@ endfunction
 function! s:match_enclosedsyntax(stack, prev_res, cur_syn)  "{{{2
   for enc_syn in g:enclosedsyntax_custom_mapping[&ft]
     let start_diff = len(a:cur_syn) - len(enc_syn.start)
-    let end_diff = len(a:cur_syn) - len(enc_syn.end)
     if start_diff >= 0 && a:cur_syn[start_diff :] == enc_syn.start
       if !empty(a:stack) && has_key(a:stack[-1], 'end')
         if enc_syn == { 'start': a:cur_syn[start_diff :], 'end': a:stack[-1].end }
           let a:stack[-1].start = a:cur_syn[start_diff :]
           return a:stack[-1]
-        else
-          " TODO: error handling
-          return 0
         endif
       else
         if empty(a:stack) ||
@@ -196,14 +192,15 @@ function! s:match_enclosedsyntax(stack, prev_res, cur_syn)  "{{{2
         endif
         return a:stack[-1]
       endif
-    elseif end_diff >= 0 && a:cur_syn[end_diff :] == enc_syn.end
+    endif
+  endfor
+  for enc_syn in g:enclosedsyntax_custom_mapping[&ft]
+    let end_diff = len(a:cur_syn) - len(enc_syn.end)
+    if end_diff >= 0 && a:cur_syn[end_diff :] == enc_syn.end
       if !empty(a:stack) && has_key(a:stack[-1], 'start')
         if enc_syn == { 'start': a:stack[-1].start, 'end': a:cur_syn[end_diff :] }
           let a:stack[-1].end = a:cur_syn[end_diff :]
           return a:stack[-1]
-        else
-          " TODO: error handling
-          return 0
         endif
       else
         if empty(a:stack) ||
