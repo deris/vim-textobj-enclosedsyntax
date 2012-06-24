@@ -92,6 +92,7 @@ function! s:traverse_enclosedsyntax()  "{{{2
 
   let stack = []
   let prev_res = {}
+  let first_flag = 1
   while 1
     let cur_line = line('.')
     let cur_col = col('.')
@@ -100,6 +101,12 @@ function! s:traverse_enclosedsyntax()  "{{{2
     let res = s:match_enclosedsyntax(stack, prev_res, cur_syn)
     if type(res) == type(0)
       break
+    endif
+    if first_flag == 1 && has_key(res, 'end')
+      let res = {}
+      call remove(stack, -1)
+    else
+      let first_flag = 0
     endif
     if !empty(prev_res) && res != prev_res
       if !empty(stack) && has_key(stack[-1], 'start') && has_key(stack[-1], 'end')
@@ -123,9 +130,11 @@ function! s:traverse_enclosedsyntax()  "{{{2
   endif
 
   let b = getpos('.')
+  call s:get_innerpos(b, 'l')
 
   let btm_line = line('$')
   let prev_res = {}
+  let end_flag = 0
   while 1
     let cur_line = line('.')
     let cur_col  = col('.')
@@ -135,12 +144,16 @@ function! s:traverse_enclosedsyntax()  "{{{2
     if type(res) == type(0)
       break
     endif
-    if !empty(prev_res) && res != prev_res
+    if res != prev_res
       if !empty(stack) && has_key(stack[-1], 'start') && has_key(stack[-1], 'end')
         if len(stack) == 1
-          normal! h
-          break
-        elseif !empty(stack)
+          if end_flag
+            normal! h
+            break
+          else
+            let end_flag = 1
+          endif
+        else
           call remove(stack, -1)
         endif
       endif
