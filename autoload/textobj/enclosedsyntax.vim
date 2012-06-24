@@ -125,6 +125,7 @@ function! s:traverse_enclosedsyntax()  "{{{2
 
   let btm_line = line('$')
   let prev_res = {}
+  let end_flag = 0
   while 1
     let cur_line = line('.')
     let cur_col  = col('.')
@@ -134,12 +135,16 @@ function! s:traverse_enclosedsyntax()  "{{{2
     if type(res) == type(0)
       break
     endif
-    if !empty(prev_res) && res != prev_res
+    if res != prev_res
       if !empty(stack) && has_key(stack[-1], 'start') && has_key(stack[-1], 'end')
         if len(stack) == 1
-          normal! h
-          break
-        elseif !empty(stack)
+          if end_flag
+            normal! h
+            break
+          else
+            let end_flag = 1
+          endif
+        else
           call remove(stack, -1)
         endif
       endif
