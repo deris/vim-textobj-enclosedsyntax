@@ -58,7 +58,6 @@ function! textobj#enclosedsyntax#select_a()  "{{{2
 
   let [&whichwrap, &lazyredraw] = [save_ww, save_lz]
 
-  echo res
   return res
 endfunction
 
