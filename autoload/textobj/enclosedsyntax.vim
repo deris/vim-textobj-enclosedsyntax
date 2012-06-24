@@ -27,18 +27,20 @@
 let g:enclosedsyntax_custom_mapping = {
   \ 'perl': [
   \   { 'start': ['perlQQ','perlStringStartEnd'], 'end': ['perlStringStartEnd'] },
+  \   { 'start': ['perlStringUnexpanded','perlStringStartEnd'], 'end': ['perlStringStartEnd'] },
+  \   { 'start': ['perlString','perlStringStartEnd'], 'end': ['perlStringStartEnd'] },
+  \   { 'start': ['perlHereDoc','perlStringStartEnd'], 'end': ['perlStringStartEnd'] },
+  \   { 'start': ['perlAutoload','perlStringStartEnd'], 'end': ['perlStringStartEnd'] },
   \   { 'start': ['perlMatch','perlMatchStartEnd'], 'end': ['perlMatchStartEnd'] },
   \   { 'start': ['perlMatch','perlMatchStartEnd'], 'end': ['perlSubstitutionGQQ','perlMatchStartEnd'] },
   \   { 'start': ['perlMatch','perlMatchStartEnd'], 'end': ['perlSubstitutionSQ','perlMatchStartEnd'] },
   \   { 'start': ['perlMatch','perlMatchStartEnd'], 'end': ['perlTranslationGQ','perlMatchStartEnd'] },
-  \   { 'start': ['perlHereDoc','perlStringStartEnd'], 'end': ['perlStringStartEnd'] },
-  \   { 'start': ['perlAutoload','perlStringStartEnd'], 'end': ['perlStringStartEnd'] },
   \ ],
   \ 'ruby': [
   \   { 'start': ['rubyString','rubyStringDelimiter'], 'end': ['rubyStringDelimiter'] },
+  \   { 'start': ['rubyHeredocStart','rubyStringDelimiter'], 'end': ['rubyStringDelimiter'] },
   \   { 'start': ['rubyRegexp','rubyRegexpDelimiter'], 'end': ['rubyRegexpDelimiter'] },
   \   { 'start': ['rubySymbol','rubySymbolDelimiter'], 'end': ['rubySymbolDelimiter'] },
-  \   { 'start': ['rubyHeredocStart','rubyStringDelimiter'], 'end': ['rubyStringDelimiter'] },
   \ ],
   \ }
 
