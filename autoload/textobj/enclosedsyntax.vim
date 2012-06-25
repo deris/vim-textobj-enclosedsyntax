@@ -76,7 +76,7 @@ function! textobj#enclosedsyntax#select_i()  "{{{2
 
   call setpos('.', c)
   if b[1] > e[1] ||
-        \ b[1] == e[1] && b[2] >= e[2]
+        \ b[1] == e[1] && b[2] > e[2]
     return 0
   endif
 
