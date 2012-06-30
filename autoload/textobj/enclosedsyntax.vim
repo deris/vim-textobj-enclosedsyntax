@@ -31,6 +31,7 @@ let g:enclosedsyntax_custom_mapping = {
   \   { 'start': ['perlString','perlStringStartEnd'], 'end': ['perlStringStartEnd'] },
   \   { 'start': ['perlHereDoc','perlStringStartEnd'], 'end': ['perlStringStartEnd'] },
   \   { 'start': ['perlAutoload','perlStringStartEnd'], 'end': ['perlStringStartEnd'] },
+  \   { 'start': ['perlShellCommand','perlMatchStartEnd'], 'end': ['perlMatchStartEnd'] },
   \   { 'start': ['perlMatch','perlMatchStartEnd'], 'end': ['perlMatchStartEnd'] },
   \   { 'start': ['perlMatch','perlMatchStartEnd'], 'end': ['perlSubstitutionGQQ','perlMatchStartEnd'] },
   \   { 'start': ['perlMatch','perlMatchStartEnd'], 'end': ['perlSubstitutionSQ','perlMatchStartEnd'] },
