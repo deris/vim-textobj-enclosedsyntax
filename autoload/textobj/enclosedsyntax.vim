@@ -23,27 +23,6 @@
 " }}}
 
 " Interface  "{{{1
-" TODO:validate valiable
-let g:enclosedsyntax_custom_mapping = {
-  \ 'perl': [
-  \   { 'start': ['perlQQ','perlStringStartEnd'], 'end': ['perlStringStartEnd'] },
-  \   { 'start': ['perlStringUnexpanded','perlStringStartEnd'], 'end': ['perlStringStartEnd'] },
-  \   { 'start': ['perlString','perlStringStartEnd'], 'end': ['perlStringStartEnd'] },
-  \   { 'start': ['perlHereDoc','perlStringStartEnd'], 'end': ['perlStringStartEnd'] },
-  \   { 'start': ['perlAutoload','perlStringStartEnd'], 'end': ['perlStringStartEnd'] },
-  \   { 'start': ['perlShellCommand','perlMatchStartEnd'], 'end': ['perlMatchStartEnd'] },
-  \   { 'start': ['perlMatch','perlMatchStartEnd'], 'end': ['perlMatchStartEnd'] },
-  \   { 'start': ['perlMatch','perlMatchStartEnd'], 'end': ['perlSubstitutionGQQ','perlMatchStartEnd'] },
-  \   { 'start': ['perlMatch','perlMatchStartEnd'], 'end': ['perlSubstitutionSQ','perlMatchStartEnd'] },
-  \   { 'start': ['perlMatch','perlMatchStartEnd'], 'end': ['perlTranslationGQ','perlMatchStartEnd'] },
-  \ ],
-  \ 'ruby': [
-  \   { 'start': ['rubyString','rubyStringDelimiter'], 'end': ['rubyStringDelimiter'] },
-  \   { 'start': ['rubyHeredocStart','rubyStringDelimiter'], 'end': ['rubyStringDelimiter'] },
-  \   { 'start': ['rubyRegexp','rubyRegexpDelimiter'], 'end': ['rubyRegexpDelimiter'] },
-  \   { 'start': ['rubySymbol','rubySymbolDelimiter'], 'end': ['rubySymbolDelimiter'] },
-  \ ],
-  \ }
 
 function! textobj#enclosedsyntax#select_a()  "{{{2
   if empty(&ft)
