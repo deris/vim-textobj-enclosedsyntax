@@ -36,9 +36,11 @@ function! textobj#enclosedsyntax#select_a()  "{{{2
   let [save_ww, save_lz] = [&whichwrap, &lazyredraw]
   set whichwrap=h,l lazyredraw
 
-  let res = s:traverse_enclosedsyntax()
-
-  let [&whichwrap, &lazyredraw] = [save_ww, save_lz]
+  try
+    let res = s:traverse_enclosedsyntax()
+  finally
+    let [&whichwrap, &lazyredraw] = [save_ww, save_lz]
+  endtry
 
   return res
 endfunction
