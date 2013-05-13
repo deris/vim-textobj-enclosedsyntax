@@ -52,6 +52,11 @@ else
     \   { 'start': ['rubyRegexp','rubyRegexpDelimiter'], 'end': ['rubyRegexpDelimiter'] },
     \   { 'start': ['rubySymbol','rubySymbolDelimiter'], 'end': ['rubySymbolDelimiter'] },
     \ ],
+    \ 'eruby': [
+    \   { 'start': ['erubyBlock','erubyDelimiter'], 'end': ['erubyDelimiter'] },
+    \   { 'start': ['erubyExpression','erubyDelimiter'], 'end': ['erubyDelimiter'] },
+    \   { 'start': ['erubyComment','erubyDelimiter'], 'end': ['erubyDelimiter'] },
+    \ ],
     \ }
 endif
 
