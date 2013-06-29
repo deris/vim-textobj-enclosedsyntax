@@ -19,17 +19,17 @@ Screenshot
 
 ### Perl
 
-![Perl screenshot](http://gifzo.net/ainuotfIeK.gif)
+![Perl screenshot](http://gifzo.net/UihRUdLZAu.gif)
 
 
 ### Ruby
 
-![Ruby screenshot](http://gifzo.net/BD0KyCHlwzN.gif)
+![Ruby screenshot](http://gifzo.net/r1PqHaMNIN.gif)
 
 
 ### eRuby
 
-![eRuby screenshot](http://gifzo.net/BKQWevl9qOx.gif)
+![eRuby screenshot](http://gifzo.net/6NsTNyqs0O.gif)
 
 
 Install
