@@ -3,7 +3,7 @@ textobj-enclosedsyntax
 
 This is Vim plugin for treat enclosed syntax as text objext.
 
-Now support following enclosed syntas as text object
+Now support following enclosed syntax as text object
 
 * Perl regex like /.../ (support like m|...|  m#...#)
 * Perl litarel like q|...|, qq|...|, qw|...|, qx|...|, qr|...| (support like q#...#  q!...! in the same way)
