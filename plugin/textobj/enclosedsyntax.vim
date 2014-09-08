@@ -1,5 +1,5 @@
 " Text objects for an enclosed syntax.
-" Version: 0.0.1
+" Version: 0.1.2
 " Author : deris0126 <deris0126@gmail.com>
 " License: So-called MIT/X license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining

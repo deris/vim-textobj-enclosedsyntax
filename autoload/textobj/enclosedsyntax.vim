@@ -1,5 +1,5 @@
 " Text objects for an enclosed syntax.
-" Version: 0.1.0
+" Version: 0.1.2
 " Author : deris0126 <deris0126@gmail.com>
 " License: So-called MIT/X license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
@@ -25,6 +25,8 @@
 " Interface  "{{{1
 
 function! textobj#enclosedsyntax#select_a()  "{{{2
+  call s:check_syntax_on()
+
   if empty(&ft)
     return 0
   endif
@@ -46,6 +48,8 @@ function! textobj#enclosedsyntax#select_a()  "{{{2
 endfunction
 
 function! textobj#enclosedsyntax#select_i()  "{{{2
+  call s:check_syntax_on()
+
   let c = getpos('.')
   let outer = textobj#enclosedsyntax#select_a()
   if type(outer) == type(0)
@@ -219,6 +223,12 @@ function! s:get_innerpos(pos, direct)
   return getpos('.')
 endfunction
 
+function! s:check_syntax_on() "{{{2
+  if !exists('g:syntax_on')
+    echoerr 'textobj-enclosedsyntax.vim needs `syntax on`'
+  endif
+endfunction
+"}}}
 
 
 " __END__  "{{{1

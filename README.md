@@ -39,6 +39,8 @@ This plugin depends on [vim-textobj-user](http://github.com/kana/vim-textobj-use
 
 So you need to install [vim-textobj-user](http://github.com/kana/vim-textobj-user) together.
 
+And you must `syntax on` to use this plugin.
+
 
 Usage
 ---
