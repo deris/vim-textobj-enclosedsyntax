@@ -22,9 +22,9 @@
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
 
-" Interface  "{{{1
+" Public API "{{{1
 
-function! textobj#enclosedsyntax#select_a()  "{{{2
+function! textobj#enclosedsyntax#select_a() "{{{2
   call s:check_syntax_on()
 
   if empty(&ft)
@@ -46,8 +46,9 @@ function! textobj#enclosedsyntax#select_a()  "{{{2
 
   return res
 endfunction
+"}}}
 
-function! textobj#enclosedsyntax#select_i()  "{{{2
+function! textobj#enclosedsyntax#select_i() "{{{2
   call s:check_syntax_on()
 
   let c = getpos('.')
@@ -68,11 +69,12 @@ function! textobj#enclosedsyntax#select_i()  "{{{2
 
   return ['v', b, e]
 endfunction
+"}}}
 
+"}}}
 
-
-" Misc.  "{{{1
-function! s:traverse_enclosedsyntax()  "{{{2
+" Private "{{{1
+function! s:traverse_enclosedsyntax() "{{{2
   let c = getpos('.')
   let [b, e] = [c, c]
 
@@ -163,8 +165,9 @@ function! s:traverse_enclosedsyntax()  "{{{2
 
   return ['v', b, e]
 endfunction
+"}}}
 
-function! s:match_enclosedsyntax(stack, prev_res, cur_syn)  "{{{2
+function! s:match_enclosedsyntax(stack, prev_res, cur_syn) "{{{2
   for enc_syn in g:enclosedsyntax_custom_mapping[&ft]
     let start_diff = len(a:cur_syn) - len(enc_syn.start)
     if start_diff >= 0 && a:cur_syn[start_diff :] == enc_syn.start
@@ -201,8 +204,9 @@ function! s:match_enclosedsyntax(stack, prev_res, cur_syn)  "{{{2
   endfor
   return {}
 endfunction
+"}}}
 
-function! s:synname_stack(line, col)  "{{{2
+function! s:synname_stack(line, col) "{{{2
   let syns = synstack(a:line, a:col)
   let stack = []
   for syn in syns
@@ -211,8 +215,9 @@ function! s:synname_stack(line, col)  "{{{2
   endfor
   return stack
 endfunction
+"}}}
 
-function! s:get_innerpos(pos, direct)
+function! s:get_innerpos(pos, direct) "{{{2
   call setpos('.', a:pos)
   let first_syn = synstack(line('.'), col('.'))
   let cur_syn = first_syn
@@ -222,6 +227,7 @@ function! s:get_innerpos(pos, direct)
   endwhile
   return getpos('.')
 endfunction
+"}}}
 
 function! s:check_syntax_on() "{{{2
   if !exists('g:syntax_on')
@@ -230,6 +236,7 @@ function! s:check_syntax_on() "{{{2
 endfunction
 "}}}
 
+"}}}
 
-" __END__  "{{{1
+" __END__ "{{{1
 " vim: foldmethod=marker
