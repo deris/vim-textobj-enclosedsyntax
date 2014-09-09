@@ -58,8 +58,15 @@ function! textobj#enclosedsyntax#select_i() "{{{2
   endif
   let [b, e] = outer[1:]
 
-  let b = s:get_innerpos(b, 'l')
-  let e = s:get_innerpos(e, 'h')
+  let [save_ww, save_lz] = [&whichwrap, &lazyredraw]
+  set whichwrap=h,l lazyredraw
+
+  try
+    let b = s:get_innerpos(b, 'l')
+    let e = s:get_innerpos(e, 'h')
+  finally
+    let [&whichwrap, &lazyredraw] = [save_ww, save_lz]
+  endtry
 
   call setpos('.', c)
   if b[1] > e[1] ||
